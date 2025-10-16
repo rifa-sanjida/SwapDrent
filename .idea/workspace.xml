@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dbf6e5d2-3b27-4cfe-8537-8390a68c7b7d" name="Changes" comment="core app htmls">
-      <change beforePath="$PROJECT_DIR$/templates/items/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/items/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/items/conversation_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/items/conversation_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/items/conversations.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/items/conversations.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/items/item_confirm_delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/items/item_confirm_delete.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/items/my_items.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/items/my_items.html" afterDir="false" />
+    <list default="true" id="dbf6e5d2-3b27-4cfe-8537-8390a68c7b7d" name="Changes" comment="items app htmls">
+      <change beforePath="$PROJECT_DIR$/templates/users/change_password.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/change_password.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/delete_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/delete_account.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,11 +38,20 @@
       <option name="project" value="LOCAL" />
       <updated>1760623189659</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="items app htmls">
+      <option name="closed" value="true" />
+      <created>1760623766831</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1760623766831</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="core app htmls" />
-    <option name="LAST_COMMIT_MESSAGE" value="core app htmls" />
+    <MESSAGE value="items app htmls" />
+    <option name="LAST_COMMIT_MESSAGE" value="items app htmls" />
   </component>
 </project>
