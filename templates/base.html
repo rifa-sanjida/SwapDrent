@@ -179,3 +179,126 @@
             </div>
         </div>
     </footer>
+
+    <script src="/static/js/main.js"></script>
+    {% block extra_js %}{% endblock %}
+
+    <style>
+        /* Additional styles for the enhanced base template */
+        .dropdown-content a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--light);
+        }
+
+        .dropdown-content a[style*="color: var(--danger)"]:hover {
+            background-color: #fee2e2;
+        }
+
+        .messages .message {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid;
+        }
+
+        .messages .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left-color: #10b981;
+        }
+
+        .messages .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left-color: #ef4444;
+        }
+
+        .messages .message.warning {
+            background: #fef3c7;
+            color: #92400e;
+            border-left-color: #f59e0b;
+        }
+
+        .messages .message.info {
+            background: #dbeafe;
+            color: #1e40af;
+            border-left-color: #3b82f6;
+        }
+
+        footer a:hover {
+            color: white !important;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .dropdown-content {
+                position: fixed;
+                top: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                max-width: 300px;
+            }
+
+            footer .container {
+                padding: 1rem;
+            }
+        }
+
+        /* Smooth transitions */
+        .dropdown-content {
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+    </style>
+</body>
+</html>
