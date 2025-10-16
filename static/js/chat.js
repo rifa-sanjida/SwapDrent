@@ -56,4 +56,16 @@ class Chat {
             this.loading = false;  // No longer loading
         }
     }
+renderMessages(messages) {
+        // Clear current messages and show new ones
+        this.messagesContainer.innerHTML = '';  // Empty the container
+
+        // Create and add each message to the chat
+        messages.forEach(message => {
+            const messageElement = this.createMessageElement(message);
+            this.messagesContainer.appendChild(messageElement);
+        });
+
+        this.scrollToBottom();  // Keep view at latest message
+    }
 
