@@ -30,4 +30,27 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+// ===== IMAGE ERROR HANDLING =====
+    // If an image fails to load, show a placeholder instead of broken image icon
+    document.querySelectorAll('img').forEach(img => {  // Find all images on page
+        img.addEventListener('error', function() {  // If image fails to load
+            this.src = '/static/images/placeholder.jpg';  // Use placeholder image
+            this.alt = 'Image not available';  // Update alt text for accessibility
+        });
+    });
+
+    // ===== FORM SUBMISSION ENHANCEMENT =====
+    // Prevent double-clicks and show loading state when forms are submitted
+    const forms = document.querySelectorAll('form');  // Find all forms on page
+
+    forms.forEach(form => {  // Set up each form
+        form.addEventListener('submit', function(e) {  // When form is submitted
+            const submitBtn = this.querySelector('button[type="submit"]');  // Find submit button
+
+            if (submitBtn) {  // If we found a submit button
+                submitBtn.disabled = true;  // Disable button to prevent double-submission
+                submitBtn.innerHTML = '<span class="loading"></span> Processing...';  // Show loading text
+            }
+        });
+    });
 
