@@ -95,3 +95,87 @@
             {% endif %}
         </div>
     </nav>
+
+    <!-- ===== MAIN CONTENT AREA ===== -->
+    <main class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="message {{ message.tags }}">
+                        {% if message.tags == 'success' %}
+                            ✅
+                        {% elif message.tags == 'error' %}
+                            ❌
+                        {% elif message.tags == 'warning' %}
+                            ⚠️
+                        {% elif message.tags == 'info' %}
+                            ℹ️
+                        {% endif %}
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: var(--dark); color: white; padding: 2rem 0; margin-top: 4rem;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div>
+                    <h3 style="color: white; margin-bottom: 1rem;"> SwapDonateRent</h3>
+                    <p style="color: #cbd5e1;">Sustainable living through sharing. Swap, donate, or rent items in your community.</p>
+                </div>
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem;">Quick Links</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <a href="{% url 'core:home' %}" style="color: #cbd5e1; text-decoration: none;">🏠 Home</a>
+                        <a href="{% url 'items:item_list' %}" style="color: #cbd5e1; text-decoration: none;">🔍 Browse Items</a>
+                        <a href="{% url 'core:about' %}" style="color: #cbd5e1; text-decoration: none;">📖 About</a>
+                        <a href="{% url 'core:contact' %}" style="color: #cbd5e1; text-decoration: none;">📞 Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem;">Categories</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        {% for category in categories|slice:":5" %}
+                            <a href="{% url 'items:item_list' %}?category={{ category.id }}" style="color: #cbd5e1; text-decoration: none;">
+                                {{ category.name }}
+                            </a>
+                        {% endfor %}
+                        <a href="{% url 'items:item_list' %}" style="color: var(--primary); text-decoration: none;">
+                            🔍 View All Categories
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem;">Get Started</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'items:item_create' %}" style="color: #cbd5e1; text-decoration: none;">📝 Post an Item</a>
+                            <a href="{% url 'items:my_items' %}" style="color: #cbd5e1; text-decoration: none;">📦 My Items</a>
+                            <a href="{% url 'users:profile' %}" style="color: #cbd5e1; text-decoration: none;">👤 My Profile</a>
+                        {% else %}
+                            <a href="{% url 'users:register' %}" style="color: #cbd5e1; text-decoration: none;">📝 Create Account</a>
+                            <a href="{% url 'users:login' %}" style="color: #cbd5e1; text-decoration: none;">🔑 Login</a>
+                            <a href="{% url 'items:item_list' %}" style="color: #cbd5e1; text-decoration: none;">🔍 Browse Items</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid #374151; margin-top: 2rem; padding-top: 1rem; text-align: center;">
+                <p style="color: #9ca3af; margin: 0;">
+                    &copy; 2025 SwapDonateRent. Built with ❤️ for sustainable communities.
+                </p>
+                <div style="margin-top: 0.5rem;">
+                    <a href="#" style="color: #9ca3af; text-decoration: none; margin: 0 0.5rem;">Privacy Policy</a>
+                    <a href="#" style="color: #9ca3af; text-decoration: none; margin: 0 0.5rem;">Terms of Service</a>
+                    <a href="#" style="color: #9ca3af; text-decoration: none; margin: 0 0.5rem;">Help Center</a>
+                </div>
+            </div>
+        </div>
+    </footer>
