@@ -68,4 +68,19 @@ renderMessages(messages) {
 
         this.scrollToBottom();  // Keep view at latest message
     }
+createMessageElement(message) {
+        // Create HTML element for a single message
+        const messageDiv = document.createElement('div');
+        // Add CSS class based on who sent the message
+        messageDiv.className = `message-bubble ${message.is_own ? 'message-own' : 'message-other'}`;
 
+        // Fill in the message content and info
+        messageDiv.innerHTML = `
+            <div class="message-content">${this.escapeHtml(message.content)}</div>
+            <div class="message-info">
+                ${message.is_own ? 'You' : message.sender} • ${message.created_at}
+            </div>
+        `;
+
+        return messageDiv;
+    }
