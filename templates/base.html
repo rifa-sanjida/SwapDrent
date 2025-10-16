@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SwapDonateRent{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<!-- ===== MAIN NAVIGATION BAR ===== -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="{% url 'core:home' %}"> SwapDonateRent</a>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'core:home' %}"> Home</a>
 
+            <!-- Categories Dropdown -->
+            <div class="dropdown">
+                <a href="{% url 'items:item_list' %}" class="nav-link"> Categories ▾</a>
+                <div class="dropdown-content">
+                    {% for category in categories %}
+                        <a href="{% url 'items:item_list' %}?category={{ category.id }}">{{ category.name }}</a>
+                    {% endfor %}
+                    <a href="{% url 'items:item_list' %}"> All Categories</a>
+                </div>
+            </div>
+
+            <a href="{% url 'items:item_list' %}"> Browse Items</a>
+<!-- ===== DIFFERENT LINKS SHOWN BASED ON LOGIN STATUS ===== -->
+            {% if user.is_authenticated %}
+                <a href="{% url 'items:item_create' %}"> Post Item</a>
+                <a href="{% url 'items:my_items' %}"> My Items</a>
+                <a href="{% url 'items:cart' %}">
+                    🛒 Cart
+                    {% if cart_count > 0 %}
+                        <span class="cart-count">{{ cart_count }}</span>
+                    {% endif %}
+                </a>
+                <a href="{% url 'items:conversations' %}">
+                     Messages
+                    {% if unread_messages_count > 0 %}
+                        <span class="message-count">{{ unread_messages_count }}</span>
+                    {% endif %}
+                </a>
+
+                <!-- User Profile Dropdown -->
+                <div class="dropdown">
+                    <a href="{% url 'users:profile' %}" class="nav-link">
+                        👤 {{ user.username }}
+                        {% if unread_messages_count > 0 %}
+                            <span class="message-count" style="margin-left: 0.5rem;">{{ unread_messages_count }}</span>
+                        {% endif %}
+                        ▾
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'users:profile' %}">
+                            📝 Edit Profile
+                        </a>
+                        <a href="{% url 'items:my_items' %}">
+                            📦 My Items
+                            {% if user.items.count > 0 %}
+                                <small style="color: var(--success); margin-left: 0.5rem;">{{ user.items.count }}</small>
+                            {% endif %}
+                        </a>
+                        <a href="{% url 'items:conversations' %}">
+                            💬 Messages
+                            {% if unread_messages_count > 0 %}
+                                <span class="message-count" style="margin-left: 0.5rem;">{{ unread_messages_count }}</span>
+                            {% endif %}
+                        </a>
+                        <a href="{% url 'items:cart' %}">
+                            🛒 Cart
+                            {% if cart_count > 0 %}
+                                <span class="cart-count" style="margin-left: 0.5rem;">{{ cart_count }}</span>
+                            {% endif %}
+                        </a>
+                        <div style="border-top: 1px solid var(--border); margin: 0.5rem 0;"></div>
+                        <a href="{% url 'users:change_password' %}">
+                            🔑 Change Password
+                        </a>
+                        <a href="{% url 'users:delete_account' %}" style="color: var(--danger);">
+                            🗑️ Delete Account
+                        </a>
+                        <div style="border-top: 1px solid var(--border); margin: 0.5rem 0;"></div>
+                        <a href="{% url 'users:logout' %}">
+                            🚪 Logout
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'users:login' %}">🔑 Login</a>
+                <a href="{% url 'users:register' %}">📝 Register</a>
+            {% endif %}
+        </div>
+    </nav>
