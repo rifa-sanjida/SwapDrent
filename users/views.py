@@ -28,4 +28,52 @@ def register(request):
 
     # Show registration form (with errors if any)
     return render(request, 'users/register.html', {'form': form})
+def user_login(request):
+    """Handle user login with username and password"""
+    if request.method == 'POST':  # If user submitted login form
+        username = request.POST['username']  # Get username from form
+        password = request.POST['password']  # Get password from form
+        user = authenticate(request, username=username, password=password)  # Verify credentials
+
+        if user is not None:  # If username and password are correct
+            login(request, user)  # Log the user in
+            messages.success(request, f'Welcome back, {username}!')  # Personalized welcome
+            return redirect('core:home')  # Send to homepage
+        else:
+            messages.error(request, 'Invalid username or password. Please try again.')  # Error message
+
+    # Show login form (with error if login failed)
+    return render(request, 'users/login.html')
+
+
+def user_logout(request):
+    """Handle user logout"""
+    logout(request)  # End the user's session
+    messages.success(request, 'You have been successfully logged out.')  # Confirmation message
+    return redirect('core:home')  # Send to homepage
+
+
+@login_required  # Only logged-in users can access this page
+def profile(request):
+    """Let users view and edit their profile information"""
+    if request.method == 'POST':  # If user submitted profile changes
+        u_form = UserUpdateForm(request.POST, instance=request.user)  # Update basic user info
+        p_form = ProfileUpdateForm(request.POST, request.FILES,
+                                   instance=request.user.profile)  # Update profile info + picture
+
+        if u_form.is_valid() and p_form.is_valid():  # If both forms are valid
+            u_form.save()  # Save user changes
+            p_form.save()  # Save profile changes
+            messages.success(request, 'Your profile has been updated successfully!')  # Success message
+            return redirect('users:profile')  # Reload profile page
+    else:
+        # Pre-fill forms with current user data
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    # Show profile editing page with current data
+    return render(request, 'users/profile.html', {
+        'u_form': u_form,  # User account form
+        'p_form': p_form  # Profile information form
+    })
 
