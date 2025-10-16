@@ -1,22 +1,19 @@
-"""
-URL configuration for swapdonaterent project.
+from django.contrib import admin  # Import the admin panel
+from django.urls import path, include  # Tools for creating website URLs
+from django.conf import settings  # Access our project settings
+from django.conf.urls.static import static  # Serve files during development
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path
-
+# This list tells Django which URLs go to which pages
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),          # The admin dashboard lives at /admin/
+    path('', include('core.urls', namespace='core')),      # Homepage and basic pages
+    path('users/', include('users.urls', namespace='users')),  # All user account pages
+    path('items/', include('items.urls', namespace='items')),  # All item-related pages
 ]
+
+# During development, serve user-uploaded files and static files
+if settings.DEBUG:
+    # This makes uploaded images available at /media/
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # This makes CSS/JS files available at /static/
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
