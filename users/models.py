@@ -13,3 +13,17 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)  # Optional "about me" description
     created_at = models.DateTimeField(auto_now_add=True)  # When profile was created
     updated_at = models.DateTimeField(auto_now=True)  # When profile was last updated
+    def __str__(self):
+        return f"{self.user.username}'s Profile"  # Show which user this profile belongs to
+
+# These functions automatically create profiles when new users sign up
+@receiver(post_save, sender=User)  # Run this after a User is saved
+def create_user_profile(sender, instance, created, **kwargs):
+    """When a new user account is created, automatically make a profile for them"""
+    if created:  # Only for brand new users, not existing ones being updated
+        Profile.objects.create(user=instance, full_name=instance.get_full_name() or instance.username)
+
+@receiver(post_save, sender=User)  # Run this after a User is saved
+def save_user_profile(sender, instance, **kwargs):
+    """Whenever a user is saved, make sure their profile gets saved too"""
+    instance.profile.save()  # Save the profile linked to this user
