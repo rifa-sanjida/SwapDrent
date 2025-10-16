@@ -169,3 +169,24 @@ def password_reset_confirm(request, uidb64, token):
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None  # Invalid user ID
 
+ # Check if reset token is valid
+    if user is not None and default_token_generator.check_token(user, token):
+        if request.method == 'POST':  # If user submitted new password
+            form = SetNewPasswordForm(user, request.POST)  # New password form
+            if form.is_valid():  # If passwords are valid
+                form.save()  # Save new password
+                messages.success(request, 'Your password has been reset! You can now log in with your new password.')
+                return redirect('users:login')  # Back to login
+        else:
+            form = SetNewPasswordForm(user)  # Empty new password form
+
+        # Show form to set new password
+        return render(request, 'users/password_reset_confirm.html', {'form': form})
+    else:
+        messages.error(request, 'Password reset link is invalid or has expired.')  # Invalid token
+        return redirect('users:password_reset_request')  # Back to reset request
+
+
+def password_reset_done(request):
+    """Show confirmation that password reset was successful"""
+    return render(request, 'users/password_reset_done.html')  # Simple confirmation page
