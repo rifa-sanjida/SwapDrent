@@ -119,3 +119,40 @@ async sendMessage() {
             alert('Error sending message. Please try again.');
         }
     }
+addMessageToChat(message) {
+        // Add a new message to the chat without reloading
+        const messageElement = this.createMessageElement(message);
+        this.messagesContainer.appendChild(messageElement);
+        this.scrollToBottom();  // Scroll to show new message
+    }
+
+    scrollToBottom() {
+        // Keep the chat scrolled to the bottom to show latest messages
+        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+    }
+
+    escapeHtml(unsafe) {
+        // Make sure message text is safe to display (prevent XSS attacks)
+        return unsafe
+            .replace(/&/g, "&amp;")   // Escape ampersands
+            .replace(/</g, "&lt;")    // Escape less-than signs
+            .replace(/>/g, "&gt;")    // Escape greater-than signs
+            .replace(/"/g, "&quot;")  // Escape quotes
+            .replace(/'/g, "&#039;"); // Escape apostrophes
+    }
+
+    getCsrfToken() {
+        // Get the security token from the form (required by Django)
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+}
+
+// Start the chat when the page finishes loading
+document.addEventListener('DOMContentLoaded', function() {
+    // Find the chat container and get conversation ID
+    const conversationId = document.getElementById('chat-container')?.dataset.conversationId;
+
+    if (conversationId) {  // If we're on a chat page
+        window.chat = new Chat(conversationId);  // Start the chat system
+    }
+});
