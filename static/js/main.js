@@ -54,3 +54,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+// ===== AUTO-DISMISS MESSAGES =====
+    // Make success/error messages disappear automatically after 5 seconds
+    const messages = document.querySelectorAll('.message');  // Find all message elements
+
+    messages.forEach(message => {  // Set up each message
+        setTimeout(() => {  // Wait 5 seconds
+            message.style.opacity = '0';  // Start fading out
+            message.style.transition = 'opacity 0.5s';  // Smooth fade animation
+            setTimeout(() => message.remove(), 500);  // Remove from page after fade
+        }, 5000);  // 5 second delay before starting fade
+    });
+
+    // ===== SMOOTH SCROLLING =====
+    // Make clicking on links that jump to page sections scroll smoothly instead of jumping
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {  // Find anchor links
+        anchor.addEventListener('click', function (e) {  // When clicked
+            e.preventDefault();  // Stop the normal jump behavior
+            const target = document.querySelector(this.getAttribute('href'));  // Find target element
+
+            if (target) {  // If target exists on page
+                target.scrollIntoView({  // Scroll to target
+                    behavior: 'smooth',  // Use smooth animation
+                    block: 'start'  // Align to top of viewport
+                });
+            }
+        });
+    });
+
+    // ===== ITEM FILTERING =====
+    // Auto-submit filter forms when selections change (for better UX)
+    const filterSelects = document.querySelectorAll('.filter-select');  // Find filter dropdowns
+
+    filterSelects.forEach(select => {  // Set up each filter
+        select.addEventListener('change', function() {  // When selection changes
+            this.form.submit();  // Submit the parent form automatically
+        });
+    });
+});
