@@ -84,3 +84,38 @@ createMessageElement(message) {
 
         return messageDiv;
     }
+async sendMessage() {
+        // Send a new message to the server
+        const content = this.messageInput.value.trim();  // Get message text
+
+        if (!content) return;  // Don't send empty messages
+
+        const formData = new FormData(this.messageForm);  // Get form data
+
+        try {
+            // Send message to server using AJAX
+            const response = await fetch(this.messageForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',  // Identify as AJAX request
+                    'X-CSRFToken': this.getCsrfToken()  // Security token
+                }
+            });
+
+            if (response.ok) {  // If server accepted our message
+                const data = await response.json();
+                if (data.success) {  // If message was saved
+                    this.messageInput.value = '';  // Clear input box
+                    this.messageInput.style.height = 'auto';  // Reset height
+                    this.addMessageToChat(data.message);  // Add to chat immediately
+                }
+            } else {
+                throw new Error('Failed to send message');
+            }
+        } catch (error) {
+            // Show error message if sending failed
+            console.error('Error sending message:', error);
+            alert('Error sending message. Please try again.');
+        }
+    }
