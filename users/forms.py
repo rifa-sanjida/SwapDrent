@@ -50,3 +50,44 @@ class UserLoginForm(forms.Form):
         if not user:  # If authentication fails
             raise forms.ValidationError('Invalid username or password.')  # Show error
         return self.cleaned_data  # Return valid data
+class AccountDeleteForm(forms.Form):
+    """Form for users to confirm they want to delete their account"""
+    confirm = forms.BooleanField(
+        required=True,
+        label='I understand that this action cannot be undone'  # Warning message
+    )
+
+
+class PasswordResetRequestForm(forms.Form):
+    """Form for users to request password reset by email"""
+    email = forms.EmailField(
+        max_length=254,
+        required=True,
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'Enter your email address',  # Helpful placeholder
+            'class': 'form-control'  # CSS styling
+        })
+    )
+
+    def clean_email(self):
+        """Validate email and check if user exists"""
+        email = self.cleaned_data.get('email')
+        try:
+            validate_email(email)  # Check if email format is valid
+        except forms.ValidationError:
+            raise forms.ValidationError('Please enter a valid email address.')
+
+        if not User.objects.filter(email=email).exists():  # Check if email is registered
+            raise forms.ValidationError('No account found with this email address.')
+
+        return email  # Return valid email
+
+
+class SetNewPasswordForm(SetPasswordForm):
+    """Form for users to set new password after reset request"""
+
+    def __init__(self, user, *args, **kwargs):
+        """Set up form with custom styling for all fields"""
+        super().__init__(user, *args, **kwargs)
+        for field_name, field in self.fields.items():  # Loop through all fields
+            field.widget.attrs.update({'class': 'form-control'})  # Add CSS class
