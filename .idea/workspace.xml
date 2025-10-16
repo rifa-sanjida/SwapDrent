@@ -4,21 +4,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dbf6e5d2-3b27-4cfe-8537-8390a68c7b7d" name="Changes" comment="fullfil media directory by other directory" />
+    <list default="true" id="dbf6e5d2-3b27-4cfe-8537-8390a68c7b7d" name="Changes" comment="core app htmls">
+      <change beforePath="$PROJECT_DIR$/templates/items/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/items/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/items/conversation_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/items/conversation_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/items/conversations.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/items/conversations.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/items/item_confirm_delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/items/item_confirm_delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/items/my_items.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/items/my_items.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "git-widget-placeholder": "main"
   }
 }]]></component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="core app htmls">
+      <option name="closed" value="true" />
+      <created>1760623189659</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1760623189659</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="core app htmls" />
+    <option name="LAST_COMMIT_MESSAGE" value="core app htmls" />
   </component>
 </project>
