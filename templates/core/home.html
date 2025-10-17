@@ -19,3 +19,10 @@
         </div>
     {% endif %}
 </section>
+{% if user.is_authenticated and unread_messages_count > 0 %}
+<div class="message info">
+    You have <strong>{{ unread_messages_count }}</strong> unread message(s).
+    <a href="{% url 'items:conversations' %}" style="color: #1e40af; text-decoration: underline;">View Messages</a>
+</div>
+{% endif %}
+<!-- ===== HOW IT WORKS SECTION ===== -->
