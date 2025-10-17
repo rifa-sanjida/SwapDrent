@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Messages - SwapDonateRent{% endblock %}
+
+{% block content %}
+<h2>Your Conversations</h2>
+
+{% if conversations %}
+    <div class="mt-3">
+        {% for conversation in conversations %}
+            <div class="conversation-card {% if conversation.unread_count > 0 %}unread{% endif %}">
+                <div class="conversation-header">
+                    <div>
+                        <h4>
+                            <a href="{% url 'items:item_detail' conversation.item.pk %}">
+                                {{ conversation.item.name }}
+                            </a>
+                        </h4>
+                        <p>
