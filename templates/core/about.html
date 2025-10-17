@@ -28,3 +28,16 @@
         <p>Founded in 2025, SwapDonateRent began as a university Python lab project by me and my four friends.
 We built it to make swapping, donating, and renting easier — and to turn a small idea into something meaningful. </p>
     </div>
+<div class="mt-4">
+        <h2>Join Our Community</h2>
+        <p>Whether you're looking to declutter your home, find a specific item, or just want to be part of a sustainable community, we welcome you to join SwapDonateRent. Together, we can make a difference!</p>
+        <div class="mt-2">
+            {% if not user.is_authenticated %}
+                <a href="{% url 'users:register' %}" class="btn">Join Now</a>
+            {% else %}
+                <a href="{% url 'items:item_list' %}" class="btn">Browse Items</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
