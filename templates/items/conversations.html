@@ -52,3 +52,10 @@ With:
         {% endfor %}
     </div>
 {% else %}
+<div class="text-center mt-4">
+        <h3>No conversations yet</h3>
+        <p>When someone messages you about your items or you start a conversation, it will appear here.</p>
+        <a href="{% url 'items:item_list' %}" class="btn mt-2">Browse Items</a>
+    </div>
+{% endif %}
+{% endblock %}
