@@ -23,3 +23,91 @@
                 </div>
             {% endif %}
         </div>
+
+        <div class="form-group">
+            <label for="id_full_name"> Full Name *</label>
+            <input type="text" name="full_name" id="id_full_name" class="form-control"
+                   value="{{ form.full_name.value|default:'' }}" required
+                   placeholder="Enter your full name">
+            {% if form.full_name.errors %}
+                <div class="message error mt-1">
+                    {{ form.full_name.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_email"> Email Address *</label>
+            <input type="email" name="email" id="id_email" class="form-control"
+                   value="{{ form.email.value|default:'' }}" required
+                   placeholder="your@email.com">
+            {% if form.email.errors %}
+                <div class="message error mt-1">
+                    {{ form.email.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_phone"> Phone Number</label>
+            <input type="tel" name="phone" id="id_phone" class="form-control"
+                   value="{{ form.phone.value|default:'' }}"
+                   placeholder="01XXXXXXXXX">
+        </div>
+
+        <div class="form-group">
+            <label for="id_address"> Address</label>
+            <textarea name="address" id="id_address" class="form-control"
+                      rows="3" placeholder="Enter your address">{{ form.address.value|default:'' }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="id_password1">🔒 Password *</label>
+            <input type="password" name="password1" id="id_password1" class="form-control"
+                   required placeholder="Create a strong password">
+            {% if form.password1.errors %}
+                <div class="message error mt-1">
+                    {{ form.password1.errors }}
+                </div>
+            {% endif %}
+            <small style="color: var(--gray); font-size: 0.8rem;">
+                Your password must contain at least 8 characters and can't be too common.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_password2">🔒 Confirm Password *</label>
+            <input type="password" name="password2" id="id_password2" class="form-control"
+                   required placeholder="Confirm your password">
+            {% if form.password2.errors %}
+                <div class="message error mt-1">
+                    {{ form.password2.errors }}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%;">
+             Create Account
+        </button>
+    </form>
+
+    <div class="text-center mt-3">
+        <p>
+            Already have an account?
+            <a href="{% url 'users:login' %}" style="color: var(--primary); text-decoration: none; font-weight: bold;">
+                Login here
+            </a>
+        </p>
+    </div>
+
+    <div class="mt-4 p-3" style="background: var(--light); border-radius: 10px;">
+        <h4> Why Join Us?</h4>
+        <ul style="list-style: none; padding-left: 0;">
+            <li style="padding: 0.5rem 0;"> Swap items with community members</li>
+            <li style="padding: 0.5rem 0;"> Donate to people in need</li>
+            <li style="padding: 0.5rem 0;"> Rent out items and earn money</li>
+            <li style="padding: 0.5rem 0;"> Connect with local community</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
