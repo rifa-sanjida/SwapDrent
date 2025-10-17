@@ -17,3 +17,38 @@
                             </a>
                         </h4>
                         <p>
+With:
+                            {% for user in conversation.participants.all %}
+                                {% if user != request.user %}
+                                    {{ user.username }}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                        {% with last_message=conversation.messages.last %}
+                            {% if last_message %}
+                                <p><strong>Last message:</strong> {{ last_message.content|truncatewords:20 }}</p>
+                                <small>{{ last_message.created_at|timesince }} ago</small>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div>
+                        <small>{{ conversation.updated_at|date:"M d, Y" }}</small>
+                        {% if conversation.unread_count > 0 %}
+                            <div style="background: var(--success); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; margin-top: 0.5rem;">
+                                {{ conversation.unread_count }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="conversation-actions">
+                    <a href="{% url 'items:conversation_detail' conversation.id %}" class="btn btn-sm">
+                         Open Chat
+                    </a>
+                    <a href="{% url 'items:item_detail' conversation.item.pk %}" class="btn btn-sm btn-outline">
+                         View Item
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
