@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Register - SwapDonateRent{% endblock %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 0 auto;">
+    <div class="text-center mb-4">
+        <h2>Create Your Account</h2>
+        <p>Join our community today!</p>
+    </div>
+
+    <form method="post" class="p-4" style="background: white; border-radius: 10px; box-shadow: var(--shadow);">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_username"> Username *</label>
+            <input type="text" name="username" id="id_username" class="form-control"
+                   value="{{ form.username.value|default:'' }}" required
+                   placeholder="Choose a username">
+            {% if form.username.errors %}
+                <div class="message error mt-1">
+                    {{ form.username.errors }}
+                </div>
+            {% endif %}
+        </div>
